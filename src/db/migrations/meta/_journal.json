@@ -8,6 +8,13 @@
       "when": 1724622316838,
       "tag": "0000_right_zodiak",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1724785253899,
+      "tag": "0001_optimal_legion",
+      "breakpoints": true
     }
   ]
 }

@@ -45,7 +45,6 @@ const loginController = async (req, res) => {
     console.error("Error stack:", err.stack);
     res.status(500).json({
       message: "There was an error while logging in",
-      error: err.message,
     });
   }
 };
