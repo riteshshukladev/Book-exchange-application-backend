@@ -7,7 +7,8 @@ import cors from "cors"
 import  loginController from './src/controllers/loginController.js';
 import signupController from './src/controllers/signupController.js';
 import testConnection from './src/config/database.js';
-
+import authRouterLogin from './src/routes/authRouteLogin.js';
+import authRouterSignup from './src/routes/authRouteSignup.js';
 dotenv.config();
 const PORT = process.env.PORT; 
 
@@ -21,8 +22,8 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.use('/login', loginController);
-app.use('/signup', signupController);
+app.use('/login', authRouterLogin);
+app.use('/signup', authRouterSignup);
 
 console.log(process.env.PORT)
 console.log(process.env.DATABASE_URL)

@@ -33,7 +33,7 @@ const loginController = async (req, res) => {
       name: user.name,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1m",
+      expiresIn: "10",
     });
 
     res.status(200).json({
