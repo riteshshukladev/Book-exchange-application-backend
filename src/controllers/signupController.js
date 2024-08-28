@@ -39,7 +39,7 @@ const signupController = async (req, res) => {
 
         const token = jwt.sign(payload,
             process.env.JWT_SECRET, {
-                expiresIn:'10',
+                expiresIn:'1h',
         })
 
         res.status(200).json({

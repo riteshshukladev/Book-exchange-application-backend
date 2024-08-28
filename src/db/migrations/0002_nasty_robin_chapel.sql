@@ -1,0 +1,1 @@
+ALTER TABLE "bookslist" ALTER COLUMN "genre" DROP NOT NULL;

@@ -15,6 +15,20 @@
       "when": 1724785253899,
       "tag": "0001_optimal_legion",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1724834053484,
+      "tag": "0002_nasty_robin_chapel",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1724841834928,
+      "tag": "0003_glamorous_firebrand",
+      "breakpoints": true
     }
   ]
 }

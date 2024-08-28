@@ -1,12 +1,12 @@
 
 import { Router } from 'express';
-// const bookController = require('../controllers/bookController');
+import { getBooks,editBook,deleteBook,addBook } from '../controllers/BookController.js';
 
 const bookRouter = Router();
 
-bookRouter.post('/', bookController.getBooks);
-bookRouter.post('/add', bookController.addBook);
-bookRouter.put('/edit', bookController.editBook);
-bookRouter.delete('/delete', bookController.deleteBook);
+bookRouter.get('/', getBooks);
+bookRouter.post('/add', addBook);
+bookRouter.put('/edit', editBook);
+bookRouter.delete('/delete/:id', deleteBook);
 
-module.exports = bookRouter;
+export default bookRouter
