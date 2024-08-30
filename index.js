@@ -24,7 +24,8 @@ app.get('/', (req, res) => {
 
 app.use('/login', authRouterLogin);
 app.use('/signup', authRouterSignup);
-app.use('/api/books',authMiddleware,bookRouter)
+app.use('/api/books', authMiddleware, bookRouter)
+app.use('/api/filter', filterMiddleware, filterRouter);
 
 
 app.listen(PORT, () => {
