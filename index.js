@@ -9,6 +9,10 @@ import authRouterLogin from './src/routes/authRouteLogin.js';
 import authRouterSignup from './src/routes/authRouteSignup.js';
 import bookRouter from './src/routes/bookRoute.js';
 import authMiddleware from './src/middleware/authMiddleware.js';
+import { filterMiddleware } from './src/middleware/filterMiddleware.js';
+import filterRouter from './src/routes/filterRoute.js';
+
+
 dotenv.config();
 const PORT = process.env.PORT; 
 

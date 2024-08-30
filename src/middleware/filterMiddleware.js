@@ -1,4 +1,4 @@
 
-const filterMiddleware = (req, res, next) => {
+export const filterMiddleware = (req, res, next) => {
     next();
 }
