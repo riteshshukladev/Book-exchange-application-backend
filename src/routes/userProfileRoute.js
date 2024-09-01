@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { initialFetchUserData } from "../controllers/profileController.js";
+import { initialFetchUserData,updateUserProfile } from "../controllers/profileController.js";
 
 const profileRouter = Router();
 
 
 profileRouter.get('/initial-fetch', initialFetchUserData);
+profileRouter.post('/update-profile',updateUserProfile)
 
 export default profileRouter;
