@@ -88,6 +88,7 @@ const allGenres = async (req, res) => {
 
 const allBooks = async (req, res) => {
   try {
+    
     const result = await db.execute(sql`
             SELECT *
             FROM ${bookslist}

@@ -1,6 +1,6 @@
 import { db } from "../config/database.js";
 import { eq } from "drizzle-orm";
-import { bookslist } from "../db/schema.js";
+import { bookslist, exchange } from "../db/schema.js";
 
 const getBooks = async (req, res) => {
     try {
