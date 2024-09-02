@@ -13,6 +13,8 @@ import { filterMiddleware } from './src/middleware/filterMiddleware.js';
 import filterRouter from './src/routes/filterRoute.js';
 import profileMiddleware from './src/middleware/profileMiddleware.js';
 import profileRouter from './src/routes/userProfileRoute.js';
+import exchangeRouter from './src/routes/exchangeBookRoute.js';
+import exchangeBookMiddleware from './src/middleware/exchangeBookMiddleware.js';
 
 dotenv.config();
 const PORT = process.env.PORT; 
@@ -31,7 +33,8 @@ app.use('/login', authRouterLogin);
 app.use('/signup', authRouterSignup);
 app.use('/api/books', authMiddleware, bookRouter)
 app.use('/api/filter', filterMiddleware, filterRouter);
-app.use('/api/profile',profileMiddleware,profileRouter)
+app.use('/api/profile', profileMiddleware, profileRouter);
+app.use('/api/exchange', exchangeBookMiddleware, exchangeRouter);
 
 
 app.listen(PORT, () => {

@@ -65,6 +65,7 @@ const deleteBook = async (req, res) => {
     const { id } = req.params;
     console.log(id);
     try {
+
         const deletedBook = await db.delete(bookslist)
             .where(eq(bookslist.id, id))
             .returning();
