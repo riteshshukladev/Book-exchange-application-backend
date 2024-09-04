@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { db } from "../config/database.js";
 import { sql } from "drizzle-orm";
 import { bookslist } from "../db/schema.js";
-import { inArray, like,and, } from "drizzle-orm";
+import { inArray, like,and,ilike } from "drizzle-orm";
 
 const allAuthors = async (req, res) => {
   try {
@@ -145,7 +145,7 @@ const filteredBooks = async (req, res) => {
       }
   
       if (searchTerm) {
-        conditions.push(like(bookslist.title, `%${searchTerm}%`));
+        conditions.push(ilike(bookslist.title, `%${searchTerm}%`)); // Use `ilike` for case-insensitive search
       }
   
       if (conditions.length > 0) {

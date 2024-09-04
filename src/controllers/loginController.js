@@ -36,11 +36,13 @@ const loginController = async (req, res) => {
       expiresIn: "1h",
     });
 
+    console.log("login with the token " +token)
     res.status(200).json({
       message: "Login Success",
       token: token,
     });
   } catch (err) {
+    console.log("error in login")
     console.error("Login error:", err);
     console.error("Error stack:", err.stack);
     res.status(500).json({
