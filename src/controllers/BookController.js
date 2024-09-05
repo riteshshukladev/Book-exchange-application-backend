@@ -1,12 +1,12 @@
 import { db } from "../config/database.js";
-import { and, count, eq, sql } from "drizzle-orm";
+import { and, count, eq, sql,or } from "drizzle-orm";
 import { bookslist, exchange } from "../db/schema.js";
 
 const getBooks = async (req, res) => {
   try {
     const allBooks = await db.query.bookslist.findMany({
       where: eq(bookslist.email, req.user.email),
-    })
+    });
     console.log(allBooks);
     res.status(200).json({
       data: allBooks,
@@ -17,7 +17,6 @@ const getBooks = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
 
 const addBook = async (req, res) => {
   const email = req.user.email;
@@ -59,9 +58,7 @@ const addBook = async (req, res) => {
   }
 };
 
-
 const editBook = async (req, res) => {
-    
   const { id, title, author, genre } = req.body;
   try {
     const updatedBook = await db
@@ -107,4 +104,26 @@ const deleteBook = async (req, res) => {
   }
 };
 
-export { getBooks, addBook, editBook, deleteBook };
+const countExchangeRequest = async (req, res) => {
+  const email = req.user.email;
+
+  try {
+    const result = await db
+      .select({ count: sql`count(*)` })
+      .from(exchange)
+      .where(
+        and(
+          eq(exchange.ownerEmail, email),
+          or(eq(exchange.status, "pending"), eq(exchange.status, "approved"), eq(exchange.status, "declined"))
+        )
+      )
+      .execute();
+
+    res.json({ count: Number(result[0].count) });
+  } catch (error) {
+    console.error("Error fetching pending requests:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export { getBooks, addBook, editBook, deleteBook, countExchangeRequest };

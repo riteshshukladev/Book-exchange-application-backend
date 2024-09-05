@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { allAuthors, allGenres, allBooks,filteredBooks } from "../controllers/FilterController.js";
+import { allAuthors, allGenres, allBooks,filteredBooks, } from "../controllers/FilterController.js";
 
 const filterRouter = Router();
 
