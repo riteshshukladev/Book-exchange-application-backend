@@ -4,7 +4,6 @@ import * as schema from '../db/schema.js'
 import { config } from 'dotenv';
 
 
-// config({ path: '../../.env' });
 config({ path:'.env'});
 
 console.log("Database URL:", process.env.DATABASE_URL);

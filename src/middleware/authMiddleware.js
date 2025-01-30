@@ -1,26 +1,53 @@
-
-import extractPayload from "../services/extractPayLoad.js";
+import jwt from "jsonwebtoken";
+import { refreshTokenGenerator } from "../services/auth.js";
 
 const authMiddleware = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    console.log('Auth Header:', authHeader); // New log
+  try {
+    // Check cookies first
+    const accessToken = req.cookies.accessToken;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'No token provided' });
+    if (!accessToken) {
+      return res.status(401).json({ message: "No token provided" });
     }
 
-    const token = authHeader.substring(7);
-    console.log('Extracted Token:', token); // New log
+    try {
+      const payload = jwt.verify(accessToken, process.env.JWT_SECRET);
+      req.user = payload;
+      next();
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        const refreshToken = req.cookies.refreshToken;
+        if (!refreshToken) {
+          return res.status(401).json({ message: "Refresh token required" });
+        }
 
-    const payload = extractPayload(token);
-    console.log('Extracted Payload:', payload); // New log
+        try {
+          const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH);
+          const newAccessToken = refreshTokenGenerator({
+            email: payload.email,
+            name: payload.name,
+          });
 
-    if (!payload || !payload.email) {
-        return res.status(401).json({ message: 'Invalid token' });
+          // Set new access token
+          res.cookie("accessToken", newAccessToken, {
+            httpOnly: true,
+            sameSite: "strict",
+            maxAge: 15 * 60 * 1000, 
+          });
+
+          req.user = payload;
+          next();
+        } catch (refreshError) {
+          return res.status(401).json({ message: "Invalid refresh token" });
+        }
+      } else {
+        return res.status(401).json({ message: "Invalid token" });
+      }
     }
-
-    req.user = payload;
-    next();
+  } catch (error) {
+    console.error("Auth Middleware Error:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 export default authMiddleware;
