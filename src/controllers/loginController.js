@@ -8,7 +8,6 @@ import {
   accessTokenGenerator,
   refreshTokenGenerator,
 } from "../services/auth.js";
-// import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -22,7 +21,9 @@ const loginController = async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        message: "Invalid email or password",
+        success: false,
+        message: "Invalid email",
+        error: true,
       });
     }
 
@@ -30,7 +31,9 @@ const loginController = async (req, res) => {
 
     if (!isPasswordValid) {
       return res.status(401).json({
-        message: "Invalid email or password",
+        success: false,
+        message: "Invalid password",
+        error: true,
       });
     }
 
@@ -49,26 +52,27 @@ const loginController = async (req, res) => {
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      sameSite: 'strict',
-      maxAge: 15 * 60 * 1000 
+      sameSite: "strict",
+      maxAge: 1 * 60 * 1000,
     });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
       message: "Login Success",
       status: 200,
     });
-
   } catch (err) {
     console.log("error in login");
     console.error("Login error:", err);
     console.error("Error stack:", err.stack);
     res.status(500).json({
-      message: "There was an error while logging in",
+      success: false,
+      message: "An error occurred during login",
+      error: true,
     });
   }
 };

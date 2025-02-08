@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { allAuthors, allGenres, allBooks,filteredBooks, } from "../controllers/FilterController.js";
+import { getAllFilters,filteredBooks, } from "../controllers/FilterController.js";
 
 const filterRouter = Router();
 
-filterRouter.get('/all-authors',allAuthors );
-filterRouter.get('/all-genres',allGenres)
-filterRouter.get('/all-books', allBooks)
+filterRouter.get('/initial-filter-fetch', getAllFilters);
 filterRouter.post('/custom-filter', filteredBooks);
 
 export default filterRouter;
