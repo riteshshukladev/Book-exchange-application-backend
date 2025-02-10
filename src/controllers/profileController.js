@@ -37,7 +37,7 @@ const updateUserProfile = async (req, res) => {
     }
 
     const { passwordHash, ...data } = updatedUser[0];
-    res.status(200).json(data);
+    res.status(200).json({data, message:"Profile updated successfully"});
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: error.message });
