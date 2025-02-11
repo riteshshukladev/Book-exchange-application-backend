@@ -23,6 +23,7 @@ const protectedRouterController = (req, res) => {
 const refreshTokenController = (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   if (!refreshToken) {
+
     console.log("Inside the 403 top error");
     return res.status(403).json({ message: "no refresh token found" });
   }
@@ -44,7 +45,7 @@ const refreshTokenController = (req, res) => {
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
       sameSite: "strict",
-      maxAge: 1 * 60 * 1000,
+      maxAge: 15 * 60 * 1000,
     });
 
     res.status(200).json({ message: "Access token refreshed" });
